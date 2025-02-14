@@ -1,0 +1,4 @@
+Pretty sure React Native won't be able to run a python script so its likely that the app will have to 
+interact with an API for the two to connect. Setup flask endpoint API and upload the information there.
+
+Or look for a way for the app to activate it somehow... Don't know for now

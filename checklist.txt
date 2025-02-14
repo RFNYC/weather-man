@@ -7,7 +7,7 @@ NWS Specialized Alerts | Called | Needs User filter; Extract: Severity, Headline
 USER Location | Possible | When you call by coordinates search "forecastZone", Inside the dict for accurate info.
 Temp | Called | 
 Humidity |
-Wind Speed |
+Wind Speed | Called |
 Visibility |
 Feels Like X |
 
@@ -15,7 +15,6 @@ Feels Like X |
 Need to be able to build:
 
 Heatmap / Google map overlays for weather
-
 
 to activate venv 
 
