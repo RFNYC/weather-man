@@ -6,7 +6,7 @@ usgs_url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.g
 usgs_response = requests.get(usgs_url)
 
 # User coordinates goes here... Based on these coordinates a we will navigate NWS' API.
-nws_location_url = "https://api.weather.gov/points/40.7826,-73.9656"
+nws_location_url = "https://api.weather.gov/points/40.7685,-73.9822"
 nws_location_response = requests.get(nws_location_url)
 
 # print(nws_location_response.status_code)
@@ -14,7 +14,7 @@ location_response_json = json.loads(nws_location_response.text)
 coordinate_data = location_response_json["properties"]
 
 # Grabs the links hourly forecast as well as information about the zone. Including the NWS id. Ex: NYZ072
-forecast_url = coordinate_data["forecastHourly"]
+forecast_url = coordinate_data["forecast"]
 forecast_zone_url = coordinate_data["forecastZone"]
 
 # Converts response object from both links to strings then into JSON dicts for ease of navigation.
@@ -33,9 +33,6 @@ user_zone = forecast_zone_info["id"]
 # Needs to be filtered somehow; Far too much data. Consider running script after onboarding.
 nws_alerts_url = f"https://api.weather.gov/alerts/active?zone={user_zone}"
 nws_alerts_response = requests.get(nws_alerts_url)
-print(nws_alerts_response.text)
-
-
 
 # User Interface Info (Everything displayed in the app):
 # Location:
@@ -46,8 +43,12 @@ ui_temperature = coming_hour["temperature"]
 ui_unit = coming_hour["temperatureUnit"]
 # ui_precipitation coming_hour["probabilityOfPrecipitation"] -- returns dict based on rainfall levels (if any) write function later.
 ui_windspeed = coming_hour["windSpeed"]
+ui_winddirection = coming_hour["windDirection"]
+ui_shortforecast = coming_hour["shortForecast"]
+ui_detailedforecast = coming_hour["detailedForecast"]
 
 
+print(ui_area,ui_state,ui_daypart,ui_temperature,ui_unit,ui_windspeed,ui_winddirection,ui_shortforecast,ui_detailedforecast)
 
 if usgs_response.status_code == 200:
     print("All data successfully retrieved.")

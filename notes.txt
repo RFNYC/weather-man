@@ -1,4 +1,22 @@
 Pretty sure React Native won't be able to run a python script so its likely that the app will have to 
 interact with an API for the two to connect. Setup flask endpoint API and upload the information there.
 
-Or look for a way for the app to activate it somehow... Don't know for now
+Update:
+It seems to be possible to have react interact with python if you create an api. The idea is that when you call
+it the script will run as expected. Then return the information.
+
+I'm still not sure how to do this though considering I need the api to be running in the background not on the phone.
+My current thinking:
+
+Oboarding
+If none exist, create save data file and save the following content:
+
+    - Name
+    - Region
+
+Then using this information somehow run the script with info from that file?
+
+---
+
+Precipitation, dew point, and Humidity among other weather factors seem to be conditional so you're going to
+have to write a function that looks at if these things are present or not.
