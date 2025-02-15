@@ -1,2 +1,3 @@
 # weather-project
-Weather alerts / Earthquake locating in one app!
+
+Weather app focused on extreme weather alerts. Earthquakes, Blizzards, Storms etc.

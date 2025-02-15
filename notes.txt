@@ -1,3 +1,18 @@
+---
+Test Coordinates:
+Coordinates
+Fairbanks: 64.8401,-147.7200
+Manhattan: 40.7685,-73.9822
+California: 36.7783,-119.4179
+---
+Log off thoughts:
+
+Last thing you were doing was working on checking as much information from the API as possible before transitioning into system design phase.
+As of now only the basic information like temperature are displayed at the endpoint so you need to add alert stuff too. 
+
+For the love of god do not do onboarding the same way you did before. Look up a tutorial on save data/cache and onboarding.
+---
+
 Pretty sure React Native won't be able to run a python script so its likely that the app will have to 
 interact with an API for the two to connect. Setup flask endpoint API and upload the information there.
 
@@ -20,3 +35,8 @@ Then using this information somehow run the script with info from that file?
 
 Precipitation, dew point, and Humidity among other weather factors seem to be conditional so you're going to
 have to write a function that looks at if these things are present or not.
+
+---
+
+You should write a function that checks whether or not the APIs were called successfully.
+Maybe which failed and if all failed consider an offline mode?
