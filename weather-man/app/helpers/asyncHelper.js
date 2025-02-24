@@ -1,20 +1,20 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const saveName = async (userName) => {
-    try {
-      await AsyncStorage.setItem("id", userName)
-    } catch (e) {
-      console.log("error has occured.")
-    }
+export const storeData = async (userName) => {
+  try {
+    await AsyncStorage.setItem('name-key', userName);
+  } catch (e) {
+    // saving error
   }
+};
 
-export const getName = async () => {
-    try {
-      const userName = await AsyncStorage.getItem("id")
-      if (userName !== null) {
-        setName(userName)
-      }
-    } catch (e) {
-      alert(e)
+export const getData = async () => {
+  try {
+    const userName = await AsyncStorage.getItem('name-key');
+    if (userName !== null) {
+      return userName
     }
+  } catch (e) {
+    // error reading value
   }
+};
