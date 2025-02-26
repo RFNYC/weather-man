@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Link } from 'expo-router'
+import { Button, Text, TouchableOpacity, View, PermissionsAndroid } from "react-native";
 import { storeData, getData } from './helpers/asyncHelper.js'
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry.js";
-
 
 export default function MainComp() {
 
-  const [userName, setName] = useState("balls");
+  // Creates Placeholder username. Can be changed via setName(x).
+  const [userName, setName] = useState("User");
 
+  // Creates a function that can call the storeData func.
   async function saveButton(){
     storeData(userName, "name-key")
     console.log("save attempted")
   }
 
+  // Creates a function to call getData func.
   async function loadButton(){
     const name_check = await getData()
     console.log(name_check)
@@ -42,6 +44,9 @@ export default function MainComp() {
           <TouchableOpacity onPress={() => loadButton()}>
             <Text>This gets the current userName when pressed. USERNAME NOW: {userName}</Text>
           </TouchableOpacity>
+
+
+          <Link href="/page2" style={{paddingTop:20}}>view location info</Link>
       </View>
     </View>
   );

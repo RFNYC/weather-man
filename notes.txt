@@ -5,10 +5,11 @@ Fairbanks: 64.8401,-147.7200
 Manhattan: 40.7685,-73.9822
 California: 36.7783,-119.4179
 ---
+Adding permissions / Android manifest stuff:
+https://stackoverflow.com/questions/73137502/where-did-i-find-androidmanifest-xml-file-in-react-native-expo-file
+---
 Log off thoughts:
-
-Last thing you were doing was working on checking as much information from the API as possible before transitioning into system design phase.
-As of now only the basic information like temperature are displayed at the endpoint so you need to add alert stuff too. 
+Async Storage fixed. Mention that you added comments when this file is commited
 
 For the love of god do not do onboarding the same way you did before. Look up a tutorial on save data/cache and onboarding.
 ---
