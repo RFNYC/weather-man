@@ -10,7 +10,7 @@ usgs_url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.g
 usgs_response = requests.get(usgs_url)
 
 # User coordinates goes here... Based on these coordinates a we will navigate NWS' API.
-nws_location_url = "https://api.weather.gov/points/40.7685,-73.9822"
+nws_location_url = "https://api.weather.gov/points/40.8551424,-73.924608"
 nws_location_response = requests.get(nws_location_url)
 
 # print(nws_location_response.status_code)

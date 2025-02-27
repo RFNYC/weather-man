@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Platform, Text, View, StyleSheet, Button } from 'react-native';
+import { storeData, getData, storeDataCoords } from './helpers/asyncHelper.js'
+
 
 import * as Device from 'expo-device';
 
 import * as Location from 'expo-location';
+import { Link } from 'expo-router';
 
 export default function App() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  function saveLocation () {
+    storeDataCoords( latitude, longitude )
+    console.log("save attempted.")
+  }
 
   useEffect(() => {
     async function getCurrentLocation() {
@@ -31,15 +39,24 @@ export default function App() {
   }, []);
 
   let text = 'Waiting...';
+  let latitude = 'Loading...';
+  let longitude = 'Loading...';
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = JSON.stringify(location);
+    let coordinates = location['coords']
+
+    latitude = coordinates['latitude']
+    longitude = coordinates['longitude']
+    text = JSON.stringify(location)
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>{text}</Text>
+      <Text style={styles.paragraph}>{latitude}</Text>
+      <Text style={styles.paragraph}>{longitude}</Text>
+      <Button title='SAVE MY LOCATION' onPress={saveLocation} ></Button>
+      <Link href={"/"}>Go Home</Link>
     </View>
   );
 }

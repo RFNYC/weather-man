@@ -5,39 +5,33 @@ Fairbanks: 64.8401,-147.7200
 Manhattan: 40.7685,-73.9822
 California: 36.7783,-119.4179
 ---
-Adding permissions / Android manifest stuff:
-https://stackoverflow.com/questions/73137502/where-did-i-find-androidmanifest-xml-file-in-react-native-expo-file
----
-Log off thoughts:
-Async Storage fixed. Mention that you added comments when this file is commited
 
-For the love of god do not do onboarding the same way you did before. Look up a tutorial on save data/cache and onboarding.
----
+Purpose:
+What is the user coming to this app to do?
+check weather warnings, gather insights (ex: "avalanche possible in these conditions" ) based on warnings
+basic weather conditions like weather should also be present.
 
-Pretty sure React Native won't be able to run a python script so its likely that the app will have to 
-interact with an API for the two to connect. Setup flask endpoint API and upload the information there.
+Save data:
+Name, Region, Last approximate location
 
-Update:
-It seems to be possible to have react interact with python if you create an api. The idea is that when you call
-it the script will run as expected. Then return the information.
+Flow:
 
-I'm still not sure how to do this though considering I need the api to be running in the background not on the phone.
-My current thinking:
+Check for first launch -- via some saved string
 
-Oboarding
-If none exist, create save data file and save the following content:
+On first launch:
 
-    - Name
-    - Region
+CARD 1:
+Ask for their name 
 
-Then using this information somehow run the script with info from that file?
+CARD 2:
+Ask whether or not they'd like their location to be retrieved automatically
+If they press yes => GPS prompt. Then route to main page.
+If they press no => route to card 3.
 
----
+CARD 3:
+Prompt them to input their location into the dropdown menus.
+| CITY v | | STATE v | | ZIP-CODE v |
+
 
 Precipitation, dew point, and Humidity among other weather factors seem to be conditional so you're going to
 have to write a function that looks at if these things are present or not.
-
----
-
-You should write a function that checks whether or not the APIs were called successfully.
-Maybe which failed and if all failed consider an offline mode?

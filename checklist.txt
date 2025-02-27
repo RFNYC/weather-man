@@ -1,21 +1,6 @@
-api checklist
-
 need to be able to call:
 
 UGSG Earthquakes; latitude and longitude | Called |
 NWS Specialized Alerts | Called | Needs User filter; Extract: Severity, Headline, Description, Instructions, area desc, 
-USER Location | Possible | When you call by coordinates search "forecastZone", Inside the dict for accurate info.
-Temp | Called | 
-Humidity |
-Wind Speed | Called |
-Visibility |
-Feels Like X |
-
-
-Need to be able to build:
-
-Heatmap / Google map overlays for weather
-
-to activate venv 
-
-.venv\Scripts\activate.ps1
+USER Location | Called | 
+Weather info | Called |

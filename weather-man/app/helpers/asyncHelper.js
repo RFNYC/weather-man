@@ -5,23 +5,61 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // "export" -- can be imported in other files
 // This creates the storeData() function called in other files.
-export const storeData = async (userName) => {
+export const saveUser = async (userName) => {
   try {
-    await AsyncStorage.setItem('name-key', userName);
-  } catch (e) {
-    // saving error
+    await AsyncStorage.setItem('id', userName)
+  } catch(e) {
+    // save error
   }
-};
+
+  console.log('Name saved.')
+}
 
 
 // Creates getData() function called in other files.
-export const getData = async () => {
+export const getUser = async () => {
   try {
-    const userName = await AsyncStorage.getItem('name-key');
+    const userName = await AsyncStorage.getItem('id')
     if (userName !== null) {
       return userName
     }
-  } catch (e) {
-    // error reading value
+  } catch(e) {
+    // read error
   }
-};
+
+  console.log('Done.')
+}
+
+
+export const storeDataCoords = async (latitude, longitude) => {
+ 
+    const firstPair = ["@latitude", latitude]
+    const secondPair = ["@longitude", longitude]
+
+    try {
+      await AsyncStorage.multiSet([firstPair, secondPair])
+      if (firstPair, secondPair !== null) {
+        return firstPair, secondPair
+      }
+    } catch(e) {
+      //save error
+    }
+  
+    console.log("Done.")
+  }
+
+
+export const getCoords = async () => {
+
+  let values
+  try {
+    values = await AsyncStorage.multiGet(['@latitude', '@longitude'])
+    return values
+  } catch(e) {
+    // read error
+  }
+  console.log(values)
+
+  // example console.log output:
+  // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
+}
