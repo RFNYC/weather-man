@@ -38,9 +38,6 @@ export const storeDataCoords = async (latitude, longitude) => {
 
     try {
       await AsyncStorage.multiSet([firstPair, secondPair])
-      if (firstPair, secondPair !== null) {
-        return firstPair, secondPair
-      }
     } catch(e) {
       //save error
     }
@@ -51,15 +48,16 @@ export const storeDataCoords = async (latitude, longitude) => {
 
 export const getCoords = async () => {
 
-  let values
+  let response
   try {
-    values = await AsyncStorage.multiGet(['@latitude', '@longitude'])
-    return values
+    //returns a promise which once resolved has an array of last saved coordinates
+    response = AsyncStorage.multiGet(['@latitude', '@longitude'])
+    return(
+      response
+    )
   } catch(e) {
     // read error
   }
-  console.log(values)
-
   // example console.log output:
   // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
 }

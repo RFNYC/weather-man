@@ -23,7 +23,15 @@ export default function MainComp() {
 
   async function loadCoordinates(){
     let values = getCoords()
-    setCoords(values)
+    let fetchedCoordinates = await values
+    let latitude = fetchedCoordinates[0][1]
+    let longitude = fetchedCoordinates[1][1]
+
+    let coords = [];
+    coords.push(latitude,longitude)
+
+    console.log(coords)
+    setCoords(coords)
   }
 
     return (
@@ -50,7 +58,7 @@ export default function MainComp() {
 
 
           <Link href="/page2" style={{paddingTop:20}}>view location page</Link>
-          <TouchableOpacity >PRESS TO LOAD COORDINATES</TouchableOpacity>
+          <Button title="Press to load coordinates" onPress={() => loadCoordinates()}/>
           <Text>Last saved coordinates:{saved_coords}</Text>
       </View>
     </View>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Platform, Text, View, StyleSheet, Button } from 'react-native';
-import { storeData, getData, storeDataCoords } from './helpers/asyncHelper.js'
+import { storeDataCoords, getCoords } from './helpers/asyncHelper.js'
 
 
 import * as Device from 'expo-device';
@@ -12,11 +12,11 @@ export default function App() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  function saveLocation () {
+  async function saveLocation () {
     storeDataCoords( latitude, longitude )
     console.log("save attempted.")
   }
-
+  
   useEffect(() => {
     async function getCurrentLocation() {
       if (Platform.OS === 'android' && !Device.isDevice) {
@@ -55,7 +55,8 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.paragraph}>{latitude}</Text>
       <Text style={styles.paragraph}>{longitude}</Text>
-      <Button title='SAVE MY LOCATION' onPress={saveLocation} ></Button>
+      <Button title='SAVE MY LOCATION' onPress={() => saveLocation()} ></Button>
+      
       <Link href={"/"}>Go Home</Link>
     </View>
   );
