@@ -33,5 +33,3 @@ Prompt them to input their location into the dropdown menus.
 | CITY v | | STATE v | | ZIP-CODE v |
 
 
-Precipitation, dew point, and Humidity among other weather factors seem to be conditional so you're going to
-have to write a function that looks at if these things are present or not.

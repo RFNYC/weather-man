@@ -27,9 +27,7 @@ export default function MainComp() {
     let latitude = fetchedCoordinates[0][1]
     let longitude = fetchedCoordinates[1][1]
 
-    let coords = [];
-    coords.push(latitude,longitude)
-
+    let coords = `${latitude},${longitude}`
     console.log(coords)
     setCoords(coords)
   }
@@ -60,6 +58,8 @@ export default function MainComp() {
           <Link href="/page2" style={{paddingTop:20}}>view location page</Link>
           <Button title="Press to load coordinates" onPress={() => loadCoordinates()}/>
           <Text>Last saved coordinates:{saved_coords}</Text>
+          <Link href="/forecast" style={{paddingTop:20}}>view forecast page</Link>
+
       </View>
     </View>
   );
