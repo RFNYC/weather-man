@@ -33,8 +33,8 @@ export const getUser = async () => {
 
 export const storeDataCoords = async (latitude, longitude) => {
  
-    const firstPair = ["@latitude", latitude]
-    const secondPair = ["@longitude", longitude]
+    const firstPair = ["@latitude", `${latitude}`]
+    const secondPair = ["@longitude", `${longitude}`]
 
     try {
       await AsyncStorage.multiSet([firstPair, secondPair])

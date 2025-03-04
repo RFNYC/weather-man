@@ -22,8 +22,8 @@ export default function MainComp() {
   }
 
   async function loadCoordinates(){
-    let values = getCoords()
-    let fetchedCoordinates = await values
+    let values =  await getCoords()
+    let fetchedCoordinates = values
     let latitude = fetchedCoordinates[0][1]
     let longitude = fetchedCoordinates[1][1]
 
