@@ -4,6 +4,7 @@ Coordinates
 Fairbanks: 64.8401,-147.7200
 Manhattan: 40.7685,-73.9822
 California: 36.7783,-119.4179
+https://api.weather.gov/points/40.7685,-73.9822
 ---
 
 Purpose:
@@ -32,4 +33,50 @@ CARD 3:
 Prompt them to input their location into the dropdown menus.
 | CITY v | | STATE v | | ZIP-CODE v |
 
+FORECAST PAGE:
+Forecast Right now:
+Temps, Precipitation, Humidity, windspeed/direction
 
+Active warnings:        >  (Make it look apparent that you can click the button to go to another screen)
+WARNING....
+WARNING....
+-----
+Warnings page:
+At the top include the same warnings
+Include areas affected.
+
+
+add loading condition incase it fails.
+AI overview of what to do/what tools to have in these conditions 
+*disclaimer about ai overview*
+
+
+Radar
+Tonight dropdown
+Temps, etc
+
+MAP PAGE:
+Shows full scrollable google map of the general area. Add routes?
+
+OFFLINE SAFETY PAGE:
+
+If you find yourself cut off from the internet here are some resources I've compiled.
+
+emergency contacts dropdown:
+    -
+    -
+    -
+
+first aid tips:
+    - 
+    -
+    -
+
+Hospitals and shelters in the area by Coordinate... maybe press a button to load it on the map screen?
+this would also vary by region so maybe prompt the user to download this information ahead of time.
+
+additions?
+
+ai overview/recommendations based on fetched warnings.
+
+offline - common routes and safety measures for disaster types along with emergency numbers and addresses.

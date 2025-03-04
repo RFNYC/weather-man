@@ -4,7 +4,6 @@ need to be able to call:
 forecast | Called |
 temp (now+tonight), temp unit, wind direction, wind speed, short forecast, dew point...
 
-* needs check function for "features", if empty display "no relevant warnings".
 warnings by region | Called |
 outputs:
 {
