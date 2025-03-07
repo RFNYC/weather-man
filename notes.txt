@@ -9,15 +9,17 @@ https://api.weather.gov/points/40.7685,-73.9822
 
 Purpose:
 What is the user coming to this app to do?
-check weather warnings, gather insights (ex: "avalanche possible in these conditions" ) based on warnings
-basic weather conditions like weather should also be present.
+view weather warnings, advisory, weather, emergency info
 
 Save data:
-Name, Region, Last approximate location
+Name, Region, Last approximate location, list of Hospitals and shelters in the area -- based on region ideally downloaded on launch.
 
 Flow:
 
+On launch
 Check for first launch -- via some saved string
+if first => on first launch
+otherwise => Forecast
 
 On first launch:
 
@@ -33,11 +35,13 @@ CARD 3:
 Prompt them to input their location into the dropdown menus.
 | CITY v | | STATE v | | ZIP-CODE v |
 
+CARD 4:
+
 FORECAST PAGE:
 Forecast Right now:
 Temps, Precipitation, Humidity, windspeed/direction
 
-Active warnings:        >  (Make it look apparent that you can click the button to go to another screen)
+Active warnings:        > stack page > (Make it look apparent that you can click the button to go to another screen) 
 WARNING....
 WARNING....
 -----
@@ -45,11 +49,10 @@ Warnings page:
 At the top include the same warnings
 Include areas affected.
 
-
 add loading condition incase it fails.
 AI overview of what to do/what tools to have in these conditions 
+check weather warnings, gather insights (ex: "avalanche possible in these conditions" ) based on warnings
 *disclaimer about ai overview*
-
 
 Radar
 Tonight dropdown
@@ -63,14 +66,10 @@ OFFLINE SAFETY PAGE:
 If you find yourself cut off from the internet here are some resources I've compiled.
 
 emergency contacts dropdown:
-    -
-    -
-    -
-
-first aid tips:
-    - 
-    -
-    -
+first aid basics dropdown (pictures included)
+evacuation routes?
+emergency kit essentials dropdown
+Instructions on how to stay informed in a disaster
 
 Hospitals and shelters in the area by Coordinate... maybe press a button to load it on the map screen?
 this would also vary by region so maybe prompt the user to download this information ahead of time.

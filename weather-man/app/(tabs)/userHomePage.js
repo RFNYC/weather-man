@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'expo-router'
 import { Button, Text, TouchableOpacity, View, PermissionsAndroid } from "react-native";
-import { storeData, getData, saveUser, getUser, getCoords } from './helpers/asyncHelper.js'
+import { storeData, getData, saveUser, getUser, getCoords } from '../../helpers/asyncHelper.js'
 
 export default function MainComp() {
 

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Platform, Text, View, StyleSheet, Button } from 'react-native';
-import { storeDataCoords, getCoords } from './helpers/asyncHelper.js'
+import { storeDataCoords, getCoords } from '../../helpers/asyncHelper.js'
 
 
 import * as Device from 'expo-device';
 
 import * as Location from 'expo-location';
 import { Link } from 'expo-router';
+import React from 'react';
 
 export default function App() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'expo-router'
 import { Button, Text, TouchableOpacity, View, PermissionsAndroid } from "react-native";
-import { storeData, getData, saveUser, getUser, getCoords } from './helpers/asyncHelper.js'
+import { storeData, getData, saveUser, getUser, getCoords } from '../../helpers/asyncHelper.js'
 
 export default function MainComp() {
 
@@ -58,7 +58,7 @@ export default function MainComp() {
           <Link href="/page2" style={{paddingTop:20}}>view location page</Link>
           <Button title="Press to load coordinates" onPress={() => loadCoordinates()}/>
           <Text>Last saved coordinates:{saved_coords}</Text>
-          <Link href="/forecast" style={{paddingTop:20}}>view forecast page</Link>
+          <Link href="/userHomePage" style={{paddingTop:20}}>view forecast page</Link>
 
       </View>
     </View>
