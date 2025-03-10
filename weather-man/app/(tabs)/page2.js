@@ -4,14 +4,13 @@ import { storeDataCoords, getCoords } from '../../helpers/asyncHelper.js'
 
 
 import * as Device from 'expo-device';
-
 import * as Location from 'expo-location';
 import { Link } from 'expo-router';
 import React from 'react';
 
 export default function App() {
-  const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   async function saveLocation () {
     storeDataCoords( latitude, longitude )

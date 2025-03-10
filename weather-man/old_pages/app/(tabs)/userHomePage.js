@@ -47,7 +47,7 @@ export default function MainComp() {
       const coords = `${latitude},${longitude}`
       setCoords(coords)
 
-      let alertsURL = `https://api.weather.gov/alerts/active?point=${testCoords}`
+      let alertsURL = `https://api.weather.gov/alerts/active?point=${coords}`
 
       await fetch(alertsURL)
       .then(response => response.json())

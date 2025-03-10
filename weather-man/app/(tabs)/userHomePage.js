@@ -7,8 +7,7 @@ export default function MainComp() {
 
   // Creates Placeholder username. Can be changed via setName(x).
   const [userName, setName] = useState("User");
-  const [saved_coords, setCoords] = useState("Loading...");
-  const [day_part, setDayPart] = useState("Loading...")
+  const [saved_coords, setCoords] = useState("");
 
   // Creates a function that can call the storeData func.
   async function saveButton(){
@@ -22,92 +21,16 @@ export default function MainComp() {
     setName(retrieved_data)
   }
 
-  // Not in use.
   async function loadCoordinates(){
-    let values = getCoords()
-    let fetchedCoordinates = await values
+    let values =  await getCoords()
+    let fetchedCoordinates = values
     let latitude = fetchedCoordinates[0][1]
     let longitude = fetchedCoordinates[1][1]
 
-    const coords = `${latitude},${longitude}`
+    let coords = `${latitude},${longitude}`
+    console.log(coords)
     setCoords(coords)
   }
-
-  // Loads last saved location via async storage.
-  // Passes location to api as part of its query. Returns weather data based on the location.
-  useEffect(() => {
-    async function loadPage() {
-      let testCoords = '44.3294,-74.1318'
-
-      let values = getCoords()
-      let fetchedCoordinates = await values
-      let latitude = fetchedCoordinates[0][1]
-      let longitude = fetchedCoordinates[1][1]
-
-      const coords = `${latitude},${longitude}`
-      setCoords(coords)
-
-      let alertsURL = `https://api.weather.gov/alerts/active?point=${testCoords}`
-
-      await fetch(alertsURL)
-      .then(response => response.json())
-      .then((data) => {
-        let warning = data['features']
-        console.log(warning)
-        if (warning.length == 0) {
-          console.log("No relevant weather warnings detected.")
-        }
-      })
-
-      let coordinateUrl
-      console.log(coords)
-      coordinateUrl = `https://api.weather.gov/points/${coords}`
-
-      await fetch(coordinateUrl)
-      .then(response => response.json())
-      .then(async (data) => {
-        let properties = data['properties']
-        let nightlyURL = properties['forecast']
-        let hourlyURL = properties['forecastHourly']
-        
-        await fetch(nightlyURL)
-        .then(response => response.json())
-        .then((data) => {
-          let nightlyProperties = data['properties']
-          let tonight = nightlyProperties['periods'][1]
-          let precipitation = tonight['probabilityOfPrecipitation']
-          if (precipitation['value'] == 0 || precipitation['value'] == null) {
-            console.log("no precipitation tonight")
-          } else {
-            console.log(`Chance of precipitation: %${precipitation['value']}.`)
-          }
-          console.log(tonight)
-        })
-
-        await fetch(hourlyURL)
-        .then(response => response.json())
-        .then((data) => {
-          let hourlyProperties = data['properties']
-          let hour = hourlyProperties['periods'][0]
-          let precipitation = hour['probabilityOfPrecipitation']
-          let isDayTime = hour['isDaytime']
-          if (isDayTime == true) {
-            console.log('Day Time')
-          } else {
-            console.log('Night Time')
-          }
-          if (precipitation['value'] == 0 || precipitation['value'] == null) {
-            console.log("no precipitation right now")
-          } else {
-            console.log(`Chance of precipitation: %${precipitation['value']}.`)
-          }
-          console.log(hour)
-        })
-      })
-    }
-    
-    loadPage()
-  }, [])
 
     return (
     <View
@@ -118,8 +41,25 @@ export default function MainComp() {
       }}
     >
       <View>
-        <Text>Forcast:</Text>
-        <Text>You're here: {saved_coords}</Text>
+          <TouchableOpacity onPress={() => setName("bob")}>
+            <Text>This changes my userName to bob.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setName("zaire")}>
+            <Text>This changes my userName to zaire.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => saveButton()}>
+            <Text>This saves the current userName.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => loadButton()}>
+            <Text>This gets the current userName when pressed. USERNAME NOW: {userName}</Text>
+          </TouchableOpacity>
+
+
+          <Link href="/index" style={{paddingTop:20}}>view location page</Link>
+          <Button title="Press to load coordinates" onPress={() => loadCoordinates()}/>
+          <Text>Last saved coordinates:{saved_coords}</Text>
+          <Link href="/userHomePage" style={{paddingTop:20}}>view forecast page</Link>
+
       </View>
     </View>
   );
