@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Button, Text, TouchableOpacity, View, StyleSheet, TextInput, Image, Platform } from "react-native";
 import { storeDataCoords, saveUser, getUser, getCoords } from '../../helpers/asyncHelper.js'
 import { StatusBar } from 'expo-status-bar';
@@ -17,8 +17,8 @@ export default function MainComp() {
   // Serves as a final resting place for combined lat. long. coordinates once gathered.
   const [saved_coords, setCoords] = useState(null);
 
-  const [latitude, setLatitude] = useState(null)
-  const [longitude, setLongitude] = useState(null)
+  let latitude;
+  let longitude;
 
   async function saveLocation () {
     storeDataCoords( latitude, longitude )
@@ -51,17 +51,19 @@ export default function MainComp() {
         console.log(location)
         let location_coords = location['coords']
 
-        setLatitude(location_coords['latitude'])
-        setLongitude(location_coords['longitude'])
-
+        latitude = location_coords['latitude']
+        longitude = location_coords['longitude']
+        
         saveLocation()
-
-        console.log("If everything worked out as it should the location should print below:")
-        console.log(await getCoords())
       }
 
       getCurrentLocation();
   }
+
+  async function printLocation(){
+    console.log(await getCoords())
+  }
+
   return (
     <View style={styles.container}>
       <View>
@@ -69,19 +71,20 @@ export default function MainComp() {
           <Text style={styles.titleHeader}>Welcome to {"\n"}Storm Link.</Text>
           <Text style={styles.nameheader}>What's your name?</Text>
           <Text style={styles.lighterText}>*Name Required.</Text>
-          <TextInput style={styles.userNameInputBorder} placeholder="Enter your name"/>
+          {/* If you dont remember how to fetch text-input values i didnt get it either so check out this link: https://reactnative.dev/docs/handling-text-input */}
+          <TextInput style={styles.userNameInputBorder} placeholder="Enter your name" onChangeText={text => setName(text)}/>
+          <Text>{userName}</Text>
           <Text style={styles.locationHeader}>Would you like us to fetch your location?</Text>
           <Text style={styles.disclaimer}>Our app uses your location to deliver accurate weather updates. If you don’t allow location permissions, we won’t be able to do this automatically.{'\n'}{'\n'}However if you don’t consent, you can still get forecasts by entering your location manually.</Text>
-          <TouchableOpacity style={styles.buttonsTouchable}>
+          <TouchableOpacity style={styles.buttonsTouchable} onPress={() => onFetchPress()} onPressOut={() => router.push({pathname:"/(tabs)/index2"})}>
             <Text style={styles.buttonText}>FETCH MY LOCATION</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonsTouchable}>
-            <Link href='userHomePage' style={styles.buttonText}>SET LOCATION MANUALLY</Link>
+            <Text style={styles.buttonText}>SET LOCATION MANUALLY</Text>
           </TouchableOpacity>
-          <Button
-            title="fetch"
-            onPress={() => onFetchPress()}
-          />
+          <TouchableOpacity>
+            <Button title="checkS" onPress={() => printLocation()}></Button>
+          </TouchableOpacity>
           <View style={styles.imageContainer}>
             <Image
             source={pageIndicator1}
