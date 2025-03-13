@@ -12,7 +12,7 @@ export default function MainComp() {
   let pageIndicator1 = require('../../assets/images/Page1.png')
 
   // Creates Placeholder username. Can be changed via setName(x).
-  const [userName, setName] = useState("User");
+  const [userName, setName] = useState(null);
 
   // Serves as a final resting place for combined lat. long. coordinates once gathered.
   const [saved_coords, setCoords] = useState(null);
@@ -60,6 +60,17 @@ export default function MainComp() {
       getCurrentLocation();
   }
 
+  // Checks for a name before moving onto the next page.
+  async function onFetchRelease(){
+    if (userName == null || userName.length < 2){
+      // Create an official alert later.
+      console.log("Name required to move on. Please submit a valid name. (More than 1 letter.)")
+    } else {
+      await saveUser(userName)
+      router.push({pathname:"/(tabs)/index2"})
+    }
+  }
+
   async function printLocation(){
     console.log(await getCoords())
   }
@@ -76,7 +87,7 @@ export default function MainComp() {
           <Text>{userName}</Text>
           <Text style={styles.locationHeader}>Would you like us to fetch your location?</Text>
           <Text style={styles.disclaimer}>Our app uses your location to deliver accurate weather updates. If you don’t allow location permissions, we won’t be able to do this automatically.{'\n'}{'\n'}However if you don’t consent, you can still get forecasts by entering your location manually.</Text>
-          <TouchableOpacity style={styles.buttonsTouchable} onPress={() => onFetchPress()} onPressOut={() => router.push({pathname:"/(tabs)/index2"})}>
+          <TouchableOpacity style={styles.buttonsTouchable} onPress={() => onFetchPress()} onPressOut={() => onFetchRelease()}>
             <Text style={styles.buttonText}>FETCH MY LOCATION</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonsTouchable}>

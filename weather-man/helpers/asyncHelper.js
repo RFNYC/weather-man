@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // "export" -- can be imported in other files
-// This creates the storeData() function called in other files.
+// This creates the storeUser() function called in other files.
 export const saveUser = async (userName) => {
   try {
     await AsyncStorage.setItem('id', userName)

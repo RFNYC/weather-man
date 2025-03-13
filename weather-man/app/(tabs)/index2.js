@@ -12,57 +12,55 @@ export default function MainComp() {
   let pageIndicator1 = require('../../assets/images/Page1.png')
 
   // Creates Placeholder username. Can be changed via setName(x).
-  const [userName, setName] = useState("User");
+  const [userName, setName] = useState("Loading...");
+  const [userCity, setCity] = useState("City");
+  const [userState, setState] = useState("State");
+  const [userCountry, setCountry] = useState("Country");
+  const [userPostalCode, setPostCode] = useState("XXXXX");
 
-  // Serves as a final resting place for combined lat. long. coordinates once gathered.
-  const [saved_coords, setCoords] = useState(null);
+  // Retrieves name and location data fetched on the first page. Happens on mount.
+  useEffect(async () => {
+    let name_val = await getUser()
+    let location_val = await getCoords()
 
-  let latitude;
-  let longitude;
+    // Temporary JS variables to store lat/long data before setting.
+    // This is necessary because the next console.log does not print anything if you call set a state then call it right after.
+    // That would interfere with the URL fetching.
+    let tempLat = location_val[0][1]
+    let tempLong = location_val[1][1]
 
-  async function saveLocation () {
-    storeDataCoords( latitude, longitude )
-    console.log("save attempted.")
-  }
+    setName(name_val)
+    console.log(tempLat,tempLong)
+    
 
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  
-  async function onFetchPress(){
-    // Expo location boiler plate code.
-      async function getCurrentLocation() {
-        if (Platform.OS === 'android' && !Device.isDevice) {
-          setErrorMsg(
-            'Oops, this will not work on Snack in an Android Emulator. Try it on your device!'
-          );
-          return;
-        }
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          setErrorMsg('Permission to access location was denied');
-          return;
-        }
+    let geoLocationAPI = `https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${tempLat}&lon=${tempLong}`
 
-        // Returns object with location data... stores in state variable.
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
+    async function fetchGeoLocation(){
+        await fetch(geoLocationAPI)
+        .then(response => response.json())
+        .then((data) => {
 
-        // Navigating Location Object.
-        console.log(location)
-        let location_coords = location['coords']
+        // Navigating object structure | obj => features array => features object => properties => address object => | Save: CITY, COUNTRY, STATE/PROVINCE, ZIP/POSTAL
+        let features_array = data["features"]
+        let features_object = features_array[0]
+        let properties = features_object["properties"]
+        let address_information = properties["address"]
 
-        latitude = location_coords['latitude']
-        longitude = location_coords['longitude']
-        
-        saveLocation()
-      }
+        let city = address_information['city']
+        let state = address_information['state']
+        let country = address_information['country']
+        let postal_code = address_information['postcode']
 
-      getCurrentLocation();
-  }
+        setCity(city);
+        setState(state);
+        setCountry(country);
+        setPostCode(postal_code);
+    })
+    }
 
-  async function printLocation(){
-    console.log(await getCoords())
-  }
+    fetchGeoLocation();
+  }, [])
+
 
   return (
     <View style={styles.container}>
@@ -70,9 +68,10 @@ export default function MainComp() {
           <StatusBar style="light" backgroundColor="#62BFD4"/>
         <View style={styles.textContainer}>
             <Text style={styles.titleHeader}>You're all set,</Text>
-            <Text style={styles.nameHeader}>Robert Feliciano.</Text>
+            <Text style={styles.nameHeader}>{userName}.</Text>
             <Text style={styles.chosenWeatherSubHeader}>You chose to recieve weather information from:</Text>
-            <Text>Loading Location...</Text>
+            <Text>{userCity}, {userState} {userPostalCode} | {userCountry}</Text>
+            <Text>At this time Storm Link will store important emergency information and contacts according to the region you picked.{'\n'}{'\n'}If you ever find yourself without internet you should consult the “Offline Safety” tab.</Text>
         </View>
         
       </View>
