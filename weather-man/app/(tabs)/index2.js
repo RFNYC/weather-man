@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, router } from "expo-router";
-import { Button, Text, TouchableOpacity, View, StyleSheet, TextInput, Image, Platform } from "react-native";
-import { storeDataCoords, saveUser, getUser, getCoords } from '../../helpers/asyncHelper.js'
+import { router } from "expo-router";
+import { Text, TouchableOpacity, View, StyleSheet, TextInput, Image, Platform } from "react-native";
+import { getUser, getCoords } from '../../helpers/asyncHelper.js'
 import { StatusBar } from 'expo-status-bar';
-import * as Device from 'expo-device';
-import * as Location from 'expo-location';
 
 
-export default function MainComp() {
+export default function launch2() {
 
-  let pageIndicator1 = require('../../assets/images/Page1.png')
+  let pageIndicator3 = require('../../assets/images/Page3.png')
 
   // Creates Placeholder username. Can be changed via setName(x).
   const [userName, setName] = useState("Loading...");
@@ -28,6 +26,9 @@ export default function MainComp() {
     // That would interfere with the URL fetching.
     let tempLat = location_val[0][1]
     let tempLong = location_val[1][1]
+
+    let testLat = "64.8401"
+    let testLong = "-147.7200"
 
     setName(name_val)
     console.log(tempLat,tempLong)
@@ -56,11 +57,15 @@ export default function MainComp() {
         setCountry(country);
         setPostCode(postal_code);
     })
-    }
+  }
 
     fetchGeoLocation();
   }, [])
 
+  function onPressRelease() {
+    router.push({pathname:"/(tabs)/userHomePage"})
+
+  }
 
   return (
     <View style={styles.container}>
@@ -70,10 +75,19 @@ export default function MainComp() {
             <Text style={styles.titleHeader}>You're all set,</Text>
             <Text style={styles.nameHeader}>{userName}.</Text>
             <Text style={styles.chosenWeatherSubHeader}>You chose to recieve weather information from:</Text>
-            <Text>{userCity}, {userState} {userPostalCode} | {userCountry}</Text>
-            <Text>At this time Storm Link will store important emergency information and contacts according to the region you picked.{'\n'}{'\n'}If you ever find yourself without internet you should consult the “Offline Safety” tab.</Text>
+            <Text style={styles.locationInfo}>{userCity}, {userState}, {userPostalCode} | {userCountry}</Text>
+            <Text style={styles.bottomText}>At this time Storm Link will store important emergency information and contacts according to the region you picked.{'\n'}{'\n'}If you ever find yourself without internet you should consult the “Offline Safety” tab.</Text>
+            <TouchableOpacity style={styles.startButton} onPressOut={() => onPressRelease()}>
+              <Text style={styles.buttonText}>START</Text>
+            </TouchableOpacity>
+            <Text style={styles.opacityText}>If you made a mistake don’t worry, your location can be changed later in the settings.</Text>
+            <View style={styles.imageContainer}>
+              <Image
+                source={pageIndicator3}
+                style={styles.pageIndicator}
+              />
+          </View>
         </View>
-        
       </View>
     </View>
   );
@@ -81,22 +95,23 @@ export default function MainComp() {
 
 const styles = StyleSheet.create ({
   container: {
-      backgroundColor:"#62BFD4",
+    backgroundColor:"#62BFD4",
       flex: 1,
       paddingTop:"14%",
-      fontFamily: "Roboto"
+      paddingLeft:"7%",
+      paddingRight:"7%",
+      fontFamily: "Roboto",
   },
   textContainer: {
     marginTop:"20%",
-    marginLeft:"1%",
-    marginRight:"1%",
+    width:"100%",
     alignSelf:"center",
     alignItems:"center",
   },
   titleHeader: {
-      color:"white",
-      fontSize:39,
-      fontWeight:"bold"
+    color:"white",
+    fontSize:39,
+    fontWeight:"bold"
   },
   nameHeader: {
     paddingTop:"1%",
@@ -141,23 +156,6 @@ const styles = StyleSheet.create ({
     fontWeight:"bold",
     fontSize:15
   },
-  buttonsTouchable: {
-    marginTop:"8%",
-    backgroundColor:"white",
-    width:"auto",
-    height:"7%",
-    borderRadius:8,
-    justifyContent:"center",
-    alignItems:"center"
-  },
-  buttonText: {
-    color:"#001D6E",
-    fontWeight:"bold",
-    fontSize:16
-  },
-  buttonsNotTouchable: {
-
-  },
   pageIndicator: {
     display:"flex",
     alignSelf:"center",
@@ -170,5 +168,46 @@ const styles = StyleSheet.create ({
     display:"flex",
     justifyContent:"center",
     alignItems:"center"
+  },
+  locationInfo: {
+    margin:"1%",
+    paddingTop:"2%",
+    color:"white",
+    fontWeight:"bold"
+  },
+  bottomText: {
+    paddingTop:"34%",
+    color:"white",
+    fontWeight:"bold"
+  },
+  startButton: {
+    marginTop: "8%",
+    backgroundColor: "white",
+    width: "100%",
+    height: 50,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonText: {
+    color: "#001D6E",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  imageContainer: {
+    marginTop:50,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  opacityText: {
+    paddingTop:10,
+    color:"#9DE7F1",
+    textAlign:"center"
   }
 })

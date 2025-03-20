@@ -30,6 +30,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="index3"
+        options={{
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarStyle: ({display: 'none'}),
+          headerShown: false,
+          href:null
+        }}
+      />
+      <Tabs.Screen
         name="userHomePage"
       />
     </Tabs>

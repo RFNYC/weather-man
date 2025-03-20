@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, router } from "expo-router";
-import { Button, Text, TouchableOpacity, View, StyleSheet, TextInput, Image, Platform } from "react-native";
+import React, { useState } from "react";
+import { router } from "expo-router";
+import { Text, TouchableOpacity, View, StyleSheet, TextInput, Image, Platform } from "react-native";
 import { storeDataCoords, saveUser, getUser, getCoords } from '../../helpers/asyncHelper.js'
 import { StatusBar } from 'expo-status-bar';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
 
-export default function MainComp() {
+export default function launch1() {
 
   let pageIndicator1 = require('../../assets/images/Page1.png')
 
@@ -71,6 +71,10 @@ export default function MainComp() {
     }
   }
 
+  function onManualRelease(){
+    router.push({pathname:"/(tabs)/index3"})
+  }
+
   async function printLocation(){
     console.log(await getCoords())
   }
@@ -84,17 +88,14 @@ export default function MainComp() {
           <Text style={styles.lighterText}>*Name Required.</Text>
           {/* If you dont remember how to fetch text-input values i didnt get it either so check out this link: https://reactnative.dev/docs/handling-text-input */}
           <TextInput style={styles.userNameInputBorder} placeholder="Enter your name" onChangeText={text => setName(text)}/>
-          <Text>{userName}</Text>
+          {/* <Text>{userName}</Text> */}
           <Text style={styles.locationHeader}>Would you like us to fetch your location?</Text>
           <Text style={styles.disclaimer}>Our app uses your location to deliver accurate weather updates. If you don’t allow location permissions, we won’t be able to do this automatically.{'\n'}{'\n'}However if you don’t consent, you can still get forecasts by entering your location manually.</Text>
           <TouchableOpacity style={styles.buttonsTouchable} onPress={() => onFetchPress()} onPressOut={() => onFetchRelease()}>
             <Text style={styles.buttonText}>FETCH MY LOCATION</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonsTouchable}>
+          <TouchableOpacity style={styles.buttonsTouchable} onPressOut={() => onManualRelease()}>
             <Text style={styles.buttonText}>SET LOCATION MANUALLY</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Button title="checkS" onPress={() => printLocation()}></Button>
           </TouchableOpacity>
           <View style={styles.imageContainer}>
             <Image
@@ -109,12 +110,12 @@ export default function MainComp() {
 
 const styles = StyleSheet.create ({
   container: {
-      backgroundColor:"#62BFD4",
-      flex: 1,
-      paddingTop:"14%",
-      paddingLeft:"7%",
-      paddingRight:"7%",
-      fontFamily: "Roboto",
+    backgroundColor:"#62BFD4",
+    flex: 1,
+    paddingTop:"14%",
+    paddingLeft:"7%",
+    paddingRight:"7%",
+    fontFamily: "Roboto",
   },
   titleHeader: {
       color:"white",
@@ -162,15 +163,18 @@ const styles = StyleSheet.create ({
     height:"7%",
     borderRadius:8,
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+  
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   buttonText: {
     color:"#001D6E",
     fontWeight:"bold",
     fontSize:16
-  },
-  buttonsNotTouchable: {
-
   },
   pageIndicator: {
     display:"flex",
