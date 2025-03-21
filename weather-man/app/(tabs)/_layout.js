@@ -41,6 +41,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="userHomePage"
       />
+      <Tabs.Screen
+        name='openMap'
+      />
     </Tabs>
   );
 }

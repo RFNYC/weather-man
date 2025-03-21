@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import MapView from 'react-native-maps';
+
 
 
 const MyComponent = () => {
@@ -10,18 +12,27 @@ const MyComponent = () => {
   const [zipCode, setZipCode] = useState("zip")
   const [countryName, setCountryName] = useState("country")
 
+  function onCheckRelease(){
+    console.log(cityName+stateName+zipCode+countryName)
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" backgroundColor="#62BFD4"/>
       <Text style={styles.upperHeader}>Please set the location you would like to recieve weather data from.</Text>
-      <Text style={styles.opacityText}>*REQUIRES INTERNET ACCESS</Text>
       <TextInput style={styles.inputBox} placeholder="City" onChangeText={text => setCityName(text)}/>
       <View style={styles.dualInputContainer}>
         <TextInput style={styles.sideBySideInput} placeholder="State/Province" onChangeText={text => setStateName(text)}/>
         <TextInput style={styles.sideBySideInput} placeholder="Zip/Postal Code" onChangeText={text => setZipCode(text)}/>
       </View>
       <TextInput style={styles.inputBox} placeholder="Country" onChangeText={text => setCountryName(text)}/>
+      <MapView style={styles.map}/>
+      <TouchableOpacity style={styles.buttonsTouchable} onPressOut={() => onCheckRelease()}>
+            <Text style={styles.buttonText}>CHECK LOCATION ON MAP</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonsTouchable} onPressOut={() => onManualRelease()}>
+            <Text style={styles.buttonText}>SAVE LOCATION</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -36,6 +47,7 @@ const styles = StyleSheet.create({
     paddingRight:"7%",
   },
   upperHeader: {
+    paddingBottom:"4%",
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
@@ -49,6 +61,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     padding:8,
+    margin:3,
     borderWidth:1,
     borderColor:"#356C78",
     color:"#356C78",
@@ -68,7 +81,30 @@ const styles = StyleSheet.create({
   dualInputContainer: {
     width:"100%",
     flexDirection:"row"
-  }
+  },
+  mapContainer: {
+    flex: 1,
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  map: {
+    width: '100%',
+    height: '35%',
+  },
+  buttonsTouchable: {
+    marginTop:"4%",
+    backgroundColor:"white",
+    width:"100%",
+    height:"7%",
+    borderRadius:8,
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  buttonText: {
+    color:"#001D6E",
+    fontWeight:"bold",
+    fontSize:16
+  },
 });
 
 export default MyComponent;
